@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  front:
+    image: node:19
+    container_name: nodejs
+    volumes:
+      - ./front:/front
+    working_dir: /front
+    environment:
+      - NODE_ENV=development
+    ports:
+      - 8888:8888
+    tty: true
+    stdin_open: true
+    
