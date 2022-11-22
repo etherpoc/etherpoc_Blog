@@ -1,1 +1,4 @@
-データベースセットアップ```sqlx migrate run --database-url postgres://test:test@localhost:5432/test```
+データベースセットアップ
+```export DATABASE_URL="postgres://test:test@localhost:5432/test"```
+```sqlx db create```
+```sqlx migrate run ```

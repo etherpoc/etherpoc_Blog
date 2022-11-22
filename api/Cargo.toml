@@ -5,14 +5,6 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[[bin]]
-name = "start"
-path = "src/main.rs"
-
-[[bin]]
-name = "setup"
-path = "src/setup.rs"
-
 
 [dependencies]
 actix-web = "4"

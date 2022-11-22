@@ -16,6 +16,7 @@ async fn main() -> std::io::Result<()>{
     .await
     .expect("database connect error");
 
+    print!("127.0.0.1:3333");
     HttpServer::new(move || {
         App::new()
         .app_data(web::Data::new(pool.clone()))
@@ -25,5 +26,4 @@ async fn main() -> std::io::Result<()>{
     .bind("127.0.0.1:3333")?
     .run()
     .await
-
 }
