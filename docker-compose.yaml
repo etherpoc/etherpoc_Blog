@@ -1,16 +1,51 @@
 version: "3.8"
 
+
+x-environment: &envronment
+  DB_CONNECTION: ${DB_CONNECTION}
+  DB_HOST: ${DB_HOST}
+  DB_PORT: ${DB_PORT}
+  POSTGRES_DB: ${POSTGRES_DB}
+  POSTGRES_USER: ${POSTGRES_USER}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  TZ: ${TZ}
+
 services:
   front:
-    image: node:19
     container_name: nodejs
+    build:
+      context: .
+      dockerfile: docker/front/Dockerfile
     volumes:
-      - ./front:/front
-    working_dir: /front
-    environment:
-      - NODE_ENV=development
+      - ./front:/usr/src/front
+    working_dir: /usr/src/front
     ports:
       - 8888:8888
     tty: true
     stdin_open: true
+
+  api:
+    container_name: rust
+    build:
+      context: .
+      dockerfile: docker/api/Dockerfile
+    environment: *envronment
+    volumes:
+      - ./api:/usr/src/api
+    working_dir: /usr/src/api
+    tty: true
+    stdin_open: true
+
+  db:
+    container_name: postgresql
+    build: 
+      context: .
+      dockerfile: docker/db/Dockerfile
+    environment: *envronment
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - ./db://var/lib/postgresql/data
+      - ./docker/db/init:/docker-entrypoint-initdb.d
+      - ./docker/db/postgresql.conf:/etc/postgresql/postgresql.conf
     

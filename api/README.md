@@ -1,0 +1,1 @@
+データベースセットアップ```sqlx migrate run --database-url postgres://test:test@localhost:5432/test```
