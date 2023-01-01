@@ -1,0 +1,38 @@
+.main {
+    width: 500px;
+    height: auto;
+    background-color: white;
+    border: solid;
+    border-color: black;
+    margin:auto;
+}
+
+.head {
+    display: flex;
+}
+
+.title {
+    float: left;
+}
+
+.date {
+    margin-left: auto;
+    opacity: 0.8;
+}
+
+.date span {
+    display: inline-block;
+    width: 4em;
+}
+/*
+.created {
+
+}
+
+.updated {
+
+}
+
+.content {
+
+}*/

@@ -5,6 +5,7 @@ x-environment: &envronment
   DB_CONNECTION: ${DB_CONNECTION}
   DB_HOST: ${DB_HOST}
   DB_PORT: ${DB_PORT}
+  REDIS_PORT: ${REDIS_PORT}
   POSTGRES_DB: ${POSTGRES_DB}
   POSTGRES_USER: ${POSTGRES_USER}
   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -48,4 +49,15 @@ services:
       - ./db://var/lib/postgresql/data
       - ./docker/db/init:/docker-entrypoint-initdb.d
       - ./docker/db/postgresql.conf:/etc/postgresql/postgresql.conf
-    
+
+
+  redis:
+    container_name: redis
+    build:
+      context: .
+      dockerfile: docker/redis/Dockerfile
+    environment: *envronment
+    ports:
+      - ${REDIS_PORT}:5432
+    volumes:
+      - ./redis:/data

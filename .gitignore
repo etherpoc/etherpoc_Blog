@@ -1,3 +1,5 @@
 .env
 db
 api/target/
+front/.env
+redis

@@ -1,4 +1,5 @@
 pub mod index;
+pub mod auth;
 pub mod report;
 
 
@@ -16,5 +17,14 @@ pub fn reports_config(cfg: &mut web::ServiceConfig){
         .service(report::create_report)
         .service(report::update_report)
         .service(report::delete_report),
+    );
+}
+
+pub fn auth_config(cfg: &mut web::ServiceConfig){
+    cfg.service(
+        web::scope("auth")
+        .service(auth::register)
+        .service(auth::login)
+        .service(auth::logout)
     );
 }
