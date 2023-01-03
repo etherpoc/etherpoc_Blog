@@ -1,0 +1,17 @@
+
+.main {
+    display: flex;
+    z-index: 999;
+    background-color: aliceblue;
+    border: solid;
+    border-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0px 40px;
+}
+
+.title {
+    font-family: "Comic Sans MS","MS PMincho";
+}

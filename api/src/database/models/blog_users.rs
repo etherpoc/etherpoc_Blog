@@ -22,10 +22,10 @@ impl BlogUser {
         Ok(result)
     }
 
-    pub async fn get_byname(name: String, pool: sqlx::PgPool) -> Result<BlogUser, sqlx::Error>
+    pub async fn get_byemail(email: String, pool: sqlx::PgPool) -> Result<BlogUser, sqlx::Error>
     {
         let result = sqlx::query_as::<_, BlogUser>(
-            format!("SELECT * from blog_users WHERE user_name={} LIMIT 1", name).as_str()
+            format!("SELECT * from blog_users WHERE user_email={} LIMIT 1", email).as_str()
         )
         .fetch_one(&pool)
         .await?;
@@ -44,11 +44,11 @@ impl BlogUser {
         Ok(result)
     }
 
-    pub async fn insert(user: BlogUser, pool: sqlx::PgPool) -> Result<BlogUser, sqlx::Error>{
+    pub async fn insert(name: String, email:String, password:String, pool: sqlx::PgPool) -> Result<BlogUser, sqlx::Error>{
         let result = sqlx::query_as::<_, BlogUser>(
             format!(
-                "INSERT INTO blog_users (user_name, user_email) VALUES ({},{})", 
-                user.user_name, user.user_email).as_str()
+                "INSERT INTO blog_users (user_name, user_email, password) VALUES ({},{},{})", 
+                name, email, password).as_str()
         )
         .fetch_one(&pool)
         .await?;
