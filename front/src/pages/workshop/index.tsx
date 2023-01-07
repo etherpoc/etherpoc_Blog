@@ -1,40 +1,59 @@
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Layout from 'components/Layout'
-import SimpleReport from 'components/Report/Simple'
+import SimpleArticle from 'components/Article/Simple'
+import GithubRepo from 'components/Github/Repo'
 import Loading from 'components/UI/Loading'
-import getQiitaReports from 'services/qiita'
-import { Report, ApiContext } from 'types/data'
-import { analysis_markdown } from 'utils'
+import getQiitaArticles from 'services/qiita'
+import getGithubRepos from 'services/github'
+import { ParsedQiitaItem, ParsedGithubRepo } from 'types/data'
+import styles from "./style.module.scss"
 
 type WorkshopHomeProps = InferGetStaticPropsType<typeof getStaticProps>
 
 const WorkshopHome: NextPage<WorkshopHomeProps> = ({
-  dataList,
+  repos,
+  articles,
 }: WorkshopHomeProps) => {
-  const router = useRouter()
+  const router = useRouter();
   if (router.isFallback) {
     return <Loading />
   }
   return (
     <Layout>
-      {dataList.map((data: any) => {
-        return (
-          <>
-            <SimpleReport data={data} />
-          </>
-        )
-      })}
+      <div className={styles.myProduct}>
+        <h1>My Product</h1>
+        {repos.map((repo: ParsedGithubRepo) => {
+          return (
+            <div id={`${repo.id}`} className={styles.ProductItem}>
+              <GithubRepo repo={repo} />
+            </div>
+          )
+        })}
+      </div>
+
+      <div className={styles.myArticle}>
+        <h1>My Article</h1>
+        {articles.map((article: ParsedQiitaItem) => {
+          return (
+            <div id={`${article.id}`} className={styles.ArticleItem}>
+              <SimpleArticle article={article} />
+            </div>
+          )
+        })}
+      </div>
     </Layout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  let qiitaReports = await getQiitaReports();
+  let githubRepos = await getGithubRepos();
+  let qiitaArticles = await getQiitaArticles();
   
   return {
     props: {
-      dataList: qiitaReports,
+      repos: githubRepos,
+      articles: qiitaArticles,
     },
     revalidate: 60,
   }

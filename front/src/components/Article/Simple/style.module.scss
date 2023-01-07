@@ -1,0 +1,45 @@
+.main {
+    width: 1200px;
+    height: auto;
+    background-color: white;
+    border: solid;
+    border-color: black;
+    margin:auto;
+    border-radius: 20px;
+}
+
+.head {
+    display: flex;
+}
+
+.title {
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+    padding: 5px;
+}
+.date {
+    margin-left: auto;
+    opacity: 0.8;
+}
+
+.date span {
+    display: inline-block;
+    width: 4em;
+}
+.image {
+    object-fit: cover;
+    border-radius: 17px;
+}
+/*
+.created {
+
+}
+
+.updated {
+
+}
+
+.content {
+
+}*/

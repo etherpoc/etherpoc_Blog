@@ -1,8 +1,8 @@
 import ky from "ky";
 import { JSDOM } from 'jsdom';
-import { ParsedQiitaItem, QiitaReport } from "types/data";
+import { ParsedQiitaItem, QiitaArticle } from "types/data";
 
-const getQiitaReports = async ():Promise<Array<ParsedQiitaItem>>=> {
+const getQiitaArticles = async ():Promise<Array<ParsedQiitaItem>>=> {
     const res = await ky.get(
         'https://qiita.com/api/v2/authenticated_user/items',
         {
@@ -11,9 +11,9 @@ const getQiitaReports = async ():Promise<Array<ParsedQiitaItem>>=> {
             },
           }
     );
-    const resItems = (await res.json()) as QiitaReport[];
+    const resItems = (await res.json()) as QiitaArticle[];
     const dataList = await Promise.all(
-        resItems.map(async (item: QiitaReport) => {
+        resItems.map(async (item: QiitaArticle) => {
             const response = await ky.get(item.url);
             const text = await response.text();
             const dom = new JSDOM(text);
@@ -42,4 +42,4 @@ const getQiitaReports = async ():Promise<Array<ParsedQiitaItem>>=> {
     return dataList //https://qiita.com/api/v2/docs#get-apiv2authenticated_useritems
   }
 
-  export default getQiitaReports
+  export default getQiitaArticles

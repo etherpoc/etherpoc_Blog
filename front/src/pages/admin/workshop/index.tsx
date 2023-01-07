@@ -1,7 +1,7 @@
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import Layout from 'components/Layout'
-import SimpleReport from 'components/Report/Simple'
+import SimpleReport from 'components/Article/Simple'
 import Loading from 'components/UI/Loading'
 import getReportList from 'services/reports/get-reportList'
 import { Report, ApiContext } from 'types/data'

@@ -10,6 +10,7 @@
     "format": "next lint --fix --dir src"
   },
   "dependencies": {
+    "@octokit/rest": "^19.0.5",
     "@types/jsdom": "^20.0.1",
     "@types/node": "18.11.9",
     "@types/react": "18.0.24",
